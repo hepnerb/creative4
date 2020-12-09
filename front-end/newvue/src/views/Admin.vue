@@ -7,14 +7,16 @@
     </div>
     <div class="add">
       <div class="form">
-        <input v-model="title" placeholder="Title">
+        <input v-model="make" placeholder="Make">
+        <input v-model="model" placeholder="Model">
         <input v-model="description" placeholder="Description">
         <p></p>
         <input type="file" name="photo" @change="fileChanged">
         <button @click="upload">Upload</button>
       </div>
       <div class="upload" v-if="addCar">
-        <h2>{{addCar.title}}</h2>
+        <h2>{{addCar.make}}</h2>
+        <h4>{{addCar.model}}<h4>
         <h4>{{addCar.description}}<h4>
         <img :src="addCar.path" />
       </div>
@@ -32,7 +34,8 @@
         </div>
       </div>
       <div class="upload" v-if="findCar">
-        <input v-model="findCar.title">
+        <input v-model="findCar.make">
+        <input v-model="findCar.model">
         <input v-model="findCar.description">
         <p></p>
         <img :src="findCar.path" />

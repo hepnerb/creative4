@@ -2,19 +2,19 @@
 <div id="app">
   <div class="header">
     <router-link to="/">
-      <div class="logo">
-        <img src="/ordinary.png">
-      </div>
-    </router-link>
     <div class="title">
       <h1>Generic Used Car Site</h1>
     </div>
+    </router-link>
+    
   </div>
   <div class="content">
     <router-view />
   </div>
   <div class="footer">
     <router-link to="/admin">Admin</router-link>
+    <router-link to="/about">About Us</router-link>
+    <a href="https://github.com/hepnerb/creative4.git">Github Link</a>
   </div>
 </div>
 </template>
@@ -36,8 +36,8 @@ body {
 .header {
   display: flex;
   padding: 10px 100px 0px 100px;
-  background-color: #5BDEFF;
-  color: #1C454F;
+  background-color: tan;
+  color: black;
 }
 
 .title {

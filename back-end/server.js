@@ -25,13 +25,13 @@ mongoose.connect('mongodb://localhost:27017/creativefour', {
 
 const carSchema = new mongoose.Schema({
   make: String,
-  model: String,
+  modelf: String,
   description: String,
   path: String,
 });
 const bikeSchema = new mongoose.Schema({
   make: String,
-  model: String,
+  modelf: String,
   description: String,
   size: String,
   path: String,
@@ -45,7 +45,7 @@ const Bike = mongoose.model('Bike', bikeSchema)
 app.post('/api/cars/', async (req, res) => {
   const car = new Car({
     make: req.body.make,
-    model: req.body.model,
+    modelf: req.body.modelf,
     description: req.body.description,
     path: req.body.path,
   });
@@ -60,7 +60,7 @@ app.post('/api/cars/', async (req, res) => {
 app.post('/api/bikes/', async (req, res) => {
   const bike = new Bike({
     make: req.body.make,
-    model: req.body.model,
+    modelf: req.body.modelf,
     description: req.body.description,
     size: req.body.size,
     path: req.body.path,
@@ -78,6 +78,7 @@ app.post('/api/bikes/', async (req, res) => {
 app.put('/api/cars/:id', async (req, res) => {
   const car = await Car.findOne({_id: req.params.id});
   car.title = req.body.title,
+  car.modelf = req.body.modelf
   car.description = req.body.description
   try {
   await car.save();
@@ -89,8 +90,10 @@ app.put('/api/cars/:id', async (req, res) => {
 });
 app.put('/api/bikes/:id', async (req, res) => {
   const bike = await Bike.findOne({_id: req.params.id});
-  bike.title = req.body.title,
-  bike.description = req.body.description
+  bike.make = req.body.title,
+  bike.modelf = req.body.modelf,
+  bike.description = req.body.description,
+  bike.size = req.body.size
   try {
   await bike.save();
   res.send(bike);

@@ -4,14 +4,14 @@
     <h1>Cars</h1>
     <div class="image" v-for="car in cars" :key="car.id">
       <h2>{{car.make}}</h2>
-      <h4>{{car.model}}</h4>
+      <h4>{{car.modelf}}</h4>
       <img :src="car.path" />
       <h4>{{car.description}}
     </div>
     <h1>Bikes</h1>
     <div class="image" v-for="bike in bikes" :key="bike.id">
       <h2>{{bike.make}}</h2>
-      <h4>{{bike.model}}</h4>
+      <h4>{{bike.modelf}}</h4>
       <img :src="bike.path" />
       <h4>{{bike.description}}</h4>
       <h4>{{bike.size}}</h4>

@@ -7,7 +7,7 @@
     <div class="add">
       <div class="form">
         <input v-model="make" placeholder="Make">
-        <input v-model="model" placeholder="Model">
+        <input v-model="modelf" placeholder="Model">
         <input v-model="description" placeholder="Description">
         <p></p>
         <input type="file" name="photo" @change="carfileChanged">
@@ -15,7 +15,7 @@
       </div>
       <div class="upload" v-if="addCar">
         <h2>{{addCar.make}}</h2>
-        <h4>{{addCar.model}}<h4>
+        <h4>{{addCar.modelf}}<h4>
         <h4>{{addCar.description}}<h4>
         <img :src="addCar.path" />
       </div>
@@ -27,7 +27,7 @@
     <div class="add">
       <div class="form">
         <input v-model="make" placeholder="Make">
-        <input v-model="model" placeholder="Model">
+        <input v-model="modelf" placeholder="Model">
         <input v-model="description" placeholder="Description">
         <input v-model="size" placeholder="Size">
         <p></p>
@@ -36,7 +36,7 @@
       </div>
       <div class="upload" v-if="addBike">
         <h2>{{addBike.make}}</h2>
-        <h4>{{addBike.model}}<h4>
+        <h4>{{addBike.modelf}}<h4>
         <h4>{{addBike.description}}<h4>
         <h4>{{addBike.size}}<h4>
         <img :src="addBike.path" />
@@ -56,7 +56,7 @@
       </div>
       <div class="upload" v-if="findCar">
         <input v-model="findCar.make">
-        <input v-model="findCar.model">
+        <input v-model="findCar.modelf">
         <input v-model="findCar.description">
         <p></p>
         <img :src="findCar.path" />
@@ -80,7 +80,7 @@
       </div>
       <div class="upload" v-if="findBike">
         <input v-model="findBike.make">
-        <input v-model="findBike.model">
+        <input v-model="findBike.modelf">
         <input v-model="findBike.description">
         <input v-model="findBike.size">
         <p></p>
@@ -171,7 +171,7 @@ export default {
   data() {
     return {
       make: "",
-      model: "",
+      modelf: "",
       description: "",
       size: "",
       file: null,
@@ -207,7 +207,7 @@ export default {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/cars/', {
           make: this.make,
-          model: this.model,
+          modelf: this.modelf,
           description: this.description,
           path: r1.data.path
         });
@@ -235,7 +235,7 @@ async bikeupload() {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/bikes/', {
           make: this.make,
-          model: this.model,
+          modelf: this.modelff,
           description: this.description,
           size: this.size,
           path: r1.data.path
@@ -261,7 +261,7 @@ async editCar(car) {
       try {
         await axios.put("/api/cars/" + car._id, {
           make: this.findCar.make,
-          model: this.findCar.make,
+          modelf: this.findCar.modelf,
           description: this.findCar.description,
         });
         this.findCar = null;
@@ -279,7 +279,7 @@ async editBike(bike) {
       try {
         await axios.put("/api/bikes/" + bike._id, {
           make: this.findBike.make,
-          model: this.findBike.make,
+          modelf: this.findBike.make,
           description: this.findBike.description,
           size: this.findBike.size
         });

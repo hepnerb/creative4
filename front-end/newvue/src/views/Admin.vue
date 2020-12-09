@@ -82,6 +82,7 @@
         <input v-model="findBike.make">
         <input v-model="findBike.model">
         <input v-model="findBike.description">
+        <input v-model="findBike.size">
         <p></p>
         <img :src="findBike.path" />
       </div>
@@ -206,6 +207,7 @@ export default {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/cars/', {
           make: this.make,
+          model: this.model,
           description: this.description,
           path: r1.data.path
         });
@@ -233,7 +235,9 @@ async bikeupload() {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/bikes/', {
           make: this.make,
+          model: this.model,
           description: this.description,
+          size: this.size,
           path: r1.data.path
         });
         this.addBike = r2.data;
@@ -257,6 +261,7 @@ async editCar(car) {
       try {
         await axios.put("/api/cars/" + car._id, {
           make: this.findCar.make,
+          model: this.findCar.make,
           description: this.findCar.description,
         });
         this.findCar = null;
@@ -274,7 +279,9 @@ async editBike(bike) {
       try {
         await axios.put("/api/bikes/" + bike._id, {
           make: this.findBike.make,
+          model: this.findBike.make,
           description: this.findBike.description,
+          size: this.findBike.size
         });
         this.findBike = null;
         this.getBikes();

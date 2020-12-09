@@ -1,16 +1,9 @@
 <template>
 <div class="home">
   <div id="titles">
-  <h1 style="justify-content: flex-start">Cars </h1>
+  <h1 style="justify-content: flex-start">Bikes</h1>
   </div>
   <section class="image-gallery">
-    
-    <div class="image" v-for="car in cars" :key="car.id">
-      <h2>{{car.make}}</h2>
-      <h4>{{car.modelf}}</h4>
-      <img :src="car.path" />
-      <h4>{{car.description}}
-    </div>
     <div class="image" v-for="bike in bikes" :key="bike.id">
       <h2>{{bike.make}}</h2>
       <h4>{{bike.modelf}}</h4>

@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 // Configure multer so that it will upload to '../front-end/public/images'
 const multer = require('multer')
 const upload = multer({
-  dest: '/var/www/museum.brycehepner.bike/images/',
+  dest: '/var/www/creativefour.brycehepner.bike/images/',
   limits: {
     fileSize: 10000000
   }
@@ -19,50 +19,77 @@ const upload = multer({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/museum', {
+mongoose.connect('mongodb://localhost:27017/creativefour', {
   useNewUrlParser: true
 });
 
-const itemSchema = new mongoose.Schema({
-  title: String,
+const carSchema = new mongoose.Schema({
+  make: String,
+  model: String,
   description: String,
+  path: String,
+});
+const bikeSchema = new mongoose.Schema({
+  make: String,
+  model: String,
+  description: String,
+  size: String,
   path: String,
 });
 
 // Create a model for items in the museum.
-const Item = mongoose.model('Item', itemSchema);
+const Car = mongoose.model('Car', carSchema);
+const Bike = mongoose.model('Bike', bikeSchema)
 
 // Create a new item in the museum: takes a title and a path to an image.
-app.post('/api/items', async (req, res) => {
-  const item = new Item({
-    title: req.body.title,
+app.post('/api/cars', async (req, res) => {
+  const car = new Car({
+    make: req.body.make,
+    model: req.body.model,
     description: req.body.description,
     path: req.body.path,
   });
   try {
-    await item.save();
-    res.send(item);
+    await car.save();
+    res.send(car);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+app.post('/api/bikes', async (req, res) => {
+  const bike = new Bike({
+    make: req.body.make,
+    model: req.body.model,
+    description: req.body.description,
+    size: req.body.size,
+    path: req.body.path,
+  });
+  try {
+    await bike.save();
+    res.send(bike);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
   }
 });
 
-app.put('/api/items/:id', async (req, res) => {
-  const item = await Item.findOne({_id: req.params.id});
-  item.title = req.body.title,
-  item.description = req.body.description
+
+app.put('/api/cars/:id', async (req, res) => {
+  const car = await Car.findOne({_id: req.params.id});
+  car.title = req.body.title,
+  car.description = req.body.description
   try {
-  await item.save();
-  res.send(item);
+  await car.save();
+  res.send(car);
   } catch (error) {
   console.log(error);
   res.sendStatus(500);
   }
 });
 
-app.delete('/api/items/:id', async (req, res) => {
-  await Item.deleteOne({
+app.delete('/api/cars/:id', async (req, res) => {
+  await Car.deleteOne({
     _id: req.params.id
   });
   try{
@@ -85,10 +112,10 @@ app.post('/api/photos', upload.single('photo'), async (req, res) => {
   });
 });
 // Get a list of all of the items in the museum.
-app.get('/api/items', async (req, res) => {
+app.get('/api/cars', async (req, res) => {
   try {
-    let items = await Item.find();
-    res.send(items);
+    let cars = await Car.find();
+    res.send(cars);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

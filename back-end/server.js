@@ -57,7 +57,7 @@ app.post('/api/cars/', async (req, res) => {
     res.sendStatus(500);
   }
 });
-app.post('/api/bikes', async (req, res) => {
+app.post('/api/bikes/', async (req, res) => {
   const bike = new Bike({
     make: req.body.make,
     model: req.body.model,
@@ -87,6 +87,18 @@ app.put('/api/cars/:id', async (req, res) => {
   res.sendStatus(500);
   }
 });
+app.put('/api/bikes/:id', async (req, res) => {
+  const bike = await Bike.findOne({_id: req.params.id});
+  bike.title = req.body.title,
+  bike.description = req.body.description
+  try {
+  await bike.save();
+  res.send(bike);
+  } catch (error) {
+  console.log(error);
+  res.sendStatus(500);
+  }
+});
 
 app.delete('/api/cars/:id', async (req, res) => {
   await Car.deleteOne({
@@ -98,7 +110,19 @@ app.delete('/api/cars/:id', async (req, res) => {
   console.log(error);
   res.sendStatus(500);
 }
-});          
+});     
+
+app.delete('/api/bikes/:id', async (req, res) => {
+  await Bike.deleteOne({
+    _id: req.params.id
+  });
+  try{
+  res.sendStatus(200);
+} catch (error) { 
+  console.log(error);
+  res.sendStatus(500);
+}
+}); 
 
 // Upload a photo. Uses the multer middleware for the upload and then returns
 // the path where the photo is stored in the file system.
@@ -116,6 +140,16 @@ app.get('/api/cars/', async (req, res) => {
   try {
     let cars = await Car.find();
     res.send(cars);
+  } catch (error) {
+    console.log(error);
+    res.sendStatus(500);
+  }
+});
+
+app.get('/api/bikes/', async (req, res) => {
+  try {
+    let bikes = await Bike.find();
+    res.send(bikes);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

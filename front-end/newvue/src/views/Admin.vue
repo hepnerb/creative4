@@ -1,8 +1,7 @@
 <template>
 <div class="admin">
-  <h1>The Admin Page!</h1>
+  <h1>Change Page</h1>
     <div class="heading">
-      <div class="circle">1</div>
       <h2>Add a Car</h2>
     </div>
     <div class="add">
@@ -12,7 +11,7 @@
         <input v-model="description" placeholder="Description">
         <p></p>
         <input type="file" name="photo" @change="fileChanged">
-        <button @click="upload">Upload</button>
+        <button @click="carupload">Upload</button>
       </div>
       <div class="upload" v-if="addCar">
         <h2>{{addCar.make}}</h2>
@@ -21,15 +20,37 @@
         <img :src="addCar.path" />
       </div>
     </div>
+
     <div class="heading">
-      <div class="circle">2</div>
+      <h2>Add a Bike</h2>
+    </div>
+    <div class="add">
+      <div class="form">
+        <input v-model="make" placeholder="Make">
+        <input v-model="model" placeholder="Model">
+        <input v-model="description" placeholder="Description">
+        <input v-model="size" placeholder="Size">
+        <p></p>
+        <input type="file" name="photo" @change="fileChanged">
+        <button @click="bikeupload">Upload</button>
+      </div>
+      <div class="upload" v-if="addBike">
+        <h2>{{addBike.make}}</h2>
+        <h4>{{addBike.model}}<h4>
+        <h4>{{addBike.description}}<h4>
+        <h4>{{addBike.size}}<h4>
+        <img :src="addBike.path" />
+      </div>
+    </div>
+    
+    <div class="heading">
       <h2>Edit/Delete a Car</h2>
     </div>
     <div class="edit">
       <div class="form">
-        <input v-model="findTitle" placeholder="Search">
-        <div class="suggestions" v-if="suggestions.length > 0">
-          <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectCar(s)">{{s.title}}
+        <input v-model="findMake" placeholder="Search">
+        <div class="suggestions" v-if="carsuggestions.length > 0">
+          <div class="suggestion" v-for="s in carsuggestions" :key="s.id" @click="selectCar(s)">{{s.make}}
           </div>
         </div>
       </div>
@@ -45,6 +66,32 @@
         <button @click="editCar(findCar)">Edit</button>
       </div>
     </div>
+
+    <div class="heading">
+      <h2>Edit/Delete a Bike</h2>
+    </div>
+    <div class="edit">
+      <div class="form">
+        <input v-model="findMake" placeholder="Search">
+        <div class="suggestions" v-if="bikesuggestions.length > 0">
+          <div class="suggestion" v-for="s in bikesuggestions" :key="s.id" @click="selectBike(s)">{{s.make}}
+          </div>
+        </div>
+      </div>
+      <div class="upload" v-if="findBike">
+        <input v-model="findBike.make">
+        <input v-model="findBike.model">
+        <input v-model="findBike.description">
+        <p></p>
+        <img :src="findBike.path" />
+      </div>
+      <div class="actions" v-if="findBike">
+        <button @click="deleteBike(findBike)">Delete</button>
+        <button @click="editBike(findBike)">Edit</button>
+      </div>
+    </div>
+
+
 </div>
 </template>
 <style scoped>
@@ -122,33 +169,41 @@ export default {
   name: 'Admin',
   data() {
     return {
-      title: "",
+      make: "",
       description: "",
       file: null,
       addCar: null,
       cars: [],
-      findTitle: "",
+      addBike: null,
+      bikes: [],
+      findMake: "",
     findCar: null,
+    findBike: null,
     }
   },
   computed: {
-    suggestions() {
-      let cars = this.cars.filter(car => car.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
-      return cars.sort((a, b) => a.title > b.title);
+    carsuggestions() {
+      let cars = this.cars.filter(car => car.make.toLowerCase().startsWith(this.findMake.toLowerCase()));
+      return cars.sort((a, b) => a.make > b.make);
+    },
+    bikesuggestions() {
+      let bikes = this.bikes.filter(bike => bike.make.toLowerCase().startsWith(this.findMake.toLowerCase()));
+      return bikes.sort((a, b) => a.make > b.make);
     }
   },
   created() {
     this.getCars();
+    this.getBikes();
   },
   methods: {
     
-  async upload() {
+  async carupload() {
       try {
         const formData = new FormData();
         formData.append('photo', this.file, this.file.name)
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/cars/', {
-          title: this.title,
+          make: this.make,
           description: this.description,
           path: r1.data.path
         });
@@ -169,10 +224,37 @@ export default {
       console.log(error);
     }
 },
+async bikeupload() {
+      try {
+        const formData = new FormData();
+        formData.append('photo', this.file, this.file.name)
+        let r1 = await axios.post('/api/photos', formData);
+        let r2 = await axios.post('/api/bikes/', {
+          make: this.make,
+          description: this.description,
+          path: r1.data.path
+        });
+        this.addBike = r2.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    fileChanged(event) {
+      this.file = event.target.files[0]
+    },
+    async getBikes() {
+      try {
+        let response = await axios.get("/api/bikes/");
+        this.bikes = response.data;
+        return true;
+      } catch (error) {
+      console.log(error);
+    }
+},
 async editCar(car) {
       try {
         await axios.put("/api/cars/" + car._id, {
-          title: this.findCar.title,
+          make: this.findCar.make,
           description: this.findCar.description,
         });
         this.findCar = null;
@@ -183,15 +265,41 @@ async editCar(car) {
       }
     },
       selectCar(car) {
-      this.findTitle = "";
+      this.findMake = "";
       this.findCar = car;
     },
-    
+async editBike(bike) {
+      try {
+        await axios.put("/api/bikes/" + bike._id, {
+          make: this.findBike.make,
+          description: this.findBike.description,
+        });
+        this.findBike = null;
+        this.getBikes();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+      selectBike(bike) {
+      this.findMake = "";
+      this.findBike = bike;
+    },
     async deleteCar(car) {
       try {
         await axios.delete("/api/cars/" + car._id);
         this.findCar = null;
         this.getCars();
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async deleteBike(bike) {
+      try {
+        await axios.delete("/api/bikes/" + bike._id);
+        this.findBike = null;
+        this.getBikes();
         return true;
       } catch (error) {
         console.log(error);

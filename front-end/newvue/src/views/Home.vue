@@ -1,10 +1,20 @@
 <template>
 <div class="home">
   <section class="image-gallery">
+    <h1>Cars</h1>
     <div class="image" v-for="car in cars" :key="car.id">
-      <h2>{{car.title}}</h2>
+      <h2>{{car.make}}</h2>
+      <h4>{{car.model}}</h4>
       <img :src="car.path" />
       <h4>{{car.description}}
+    </div>
+    <h1>Bikes</h1>
+    <div class="image" v-for="bike in bikes" :key="bike.id">
+      <h2>{{bike.make}}</h2>
+      <h4>{{bike.model}}</h4>
+      <img :src="bike.path" />
+      <h4>{{bike.description}}</h4>
+      <h4>{{bike.size}}</h4>
     </div>
   </section>
 </div>
@@ -66,16 +76,27 @@ export default {
   data() {
     return {
      cars: [],
+     bikes: [],
     }
   },
   created() {
     this.getCars();
+    this.getBikes();
   },
   methods: {
     async getCars() {
       try {
         let response = await axios.get("/api/cars/");
         this.cars = response.data;
+        return true;
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getBikes() {
+      try {
+        let response = await axios.get("/api/bikes/");
+        this.bikes = response.data;
         return true;
       } catch (error) {
         console.log(error);

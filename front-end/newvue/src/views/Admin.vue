@@ -10,7 +10,7 @@
         <input v-model="model" placeholder="Model">
         <input v-model="description" placeholder="Description">
         <p></p>
-        <input type="file" name="photo" @change="fileChanged">
+        <input type="file" name="photo" @change="carfileChanged">
         <button @click="carupload">Upload</button>
       </div>
       <div class="upload" v-if="addCar">
@@ -31,7 +31,7 @@
         <input v-model="description" placeholder="Description">
         <input v-model="size" placeholder="Size">
         <p></p>
-        <input type="file" name="photo" @change="fileChanged">
+        <input type="file" name="photo" @change="bikefileChanged">
         <button @click="bikeupload">Upload</button>
       </div>
       <div class="upload" v-if="addBike">
@@ -212,7 +212,7 @@ export default {
         console.log(error);
       }
     },
-    fileChanged(event) {
+    carfileChanged(event) {
       this.file = event.target.files[0]
     },
     async getCars() {
@@ -239,7 +239,7 @@ async bikeupload() {
         console.log(error);
       }
     },
-    fileChanged(event) {
+    bikefileChanged(event) {
       this.file = event.target.files[0]
     },
     async getBikes() {

@@ -13,7 +13,9 @@
   </div>
   <div class="footer">
     <router-link to="/admin">Admin</router-link>
+    <p> </p>
     <router-link to="/about">About Us</router-link>
+    <p> </p>
     <a href="https://github.com/hepnerb/creative4.git">Github Link</a>
   </div>
 </div>

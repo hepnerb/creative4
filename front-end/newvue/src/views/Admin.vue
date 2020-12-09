@@ -170,7 +170,9 @@ export default {
   data() {
     return {
       make: "",
+      model: "",
       description: "",
+      size: "",
       file: null,
       addCar: null,
       cars: [],

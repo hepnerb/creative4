@@ -7,7 +7,7 @@
       </div>
     </router-link>
     <div class="title">
-      <h1>Museum of Ordinary Objects</h1>
+      <h1>Generic Used Car Site</h1>
     </div>
   </div>
   <div class="content">

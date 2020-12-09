@@ -2,10 +2,13 @@
 <div id="app">
   <div class="header">
     <router-link to="/">
-    <div class="title">
+    
+    <div id="brand">
+      <router-link to="/">
+        <img src="/images/logo.png">
+      </router-link>
       <h1>Generic Used Car Site</h1>
     </div>
-    </router-link>
     
   </div>
   <div class="content">
@@ -33,7 +36,11 @@ body {
   padding: 0px;
   margin: 0px;
 }
-
+#brand {
+  grid-area: brand;
+  display: flex;
+  justify-content: center;
+}
 /* Header */
 .header {
   display: flex;
@@ -57,7 +64,7 @@ body {
 
 /* Footer */
 .footer {
-  height: 50px;
+  height: 80px;
   padding: 20px 100px 0px 100px;
   background: #e3e3e3;
   font-size: 12px;

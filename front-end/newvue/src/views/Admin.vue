@@ -235,7 +235,7 @@ async bikeupload() {
         let r1 = await axios.post('/api/photos', formData);
         let r2 = await axios.post('/api/bikes/', {
           make: this.make,
-          modelf: this.modelff,
+          modelf: this.modelf,
           description: this.description,
           size: this.size,
           path: r1.data.path

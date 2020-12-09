@@ -8,7 +8,7 @@
       <router-link to="/">
         <img src="/images/logo.png">
       </router-link>
-      <h1>Generic Used Car Site</h1>
+      <h1>Generic Car Site</h1>
     </div>
     </div>
     <!-- <div class="header">

@@ -1,8 +1,9 @@
 <template>
 <div class="home">
   <div id="titles">
-  <h1>Cars</h1>
-  <h1>Bikes</h1>
+  <h1 style="justify-content: flex-start">Cars</h1>
+  <h1 style="justify-content: center">And</h1>
+  <h1 style="justify-content: flex-end">Bikes</h1>
   </div>
   <section class="image-gallery">
     
@@ -51,7 +52,6 @@
 #titles{
   grid-area: side;
   display: flex;
-  justify-content: flex-end;
 }
 
 /* Masonry on large screens */

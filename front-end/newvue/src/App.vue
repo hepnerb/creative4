@@ -10,7 +10,7 @@
       </router-link>
       
     </div>
-    <h1>Generic Car Site</h1>
+    <h1 style="text-align: center">Generic Car Site</h1>
     </div>
   <div class="content">
     <router-view />

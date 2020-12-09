@@ -12,7 +12,7 @@
     </div>
 
     <h1 style="text-align: center">Generic Car Site</h1>
-    <router-link to="/thebikepage" style="font-size: 18px; text-align: center; ">Check out our bikes too</router-link>
+    <router-link to="/thebikepage" style="font-size: 18px; text-align: center; ">Check out our bikes too!</router-link>
     </div>
   <div class="content">
     <router-view />

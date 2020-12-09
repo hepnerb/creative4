@@ -11,13 +11,6 @@
       <img :src="car.path" />
       <h4>{{car.description}}
     </div>
-    <div class="image" v-for="bike in bikes" :key="bike.id">
-      <h2>{{bike.make}}</h2>
-      <h4>{{bike.modelf}}</h4>
-      <img :src="bike.path" />
-      <h4>{{bike.description}}</h4>
-      <h4>{{bike.size}}</h4>
-    </div>
   </section>
 </div>
 </template>

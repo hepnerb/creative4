@@ -74,7 +74,7 @@ export default {
   methods: {
     async getCars() {
       try {
-        let response = await axios.get("/api/cars");
+        let response = await axios.get("/api/cars/");
         this.cars = response.data;
         return true;
       } catch (error) {

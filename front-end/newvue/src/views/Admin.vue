@@ -147,7 +147,7 @@ export default {
         const formData = new FormData();
         formData.append('photo', this.file, this.file.name)
         let r1 = await axios.post('/api/photos', formData);
-        let r2 = await axios.post('/api/cars', {
+        let r2 = await axios.post('/api/cars/', {
           title: this.title,
           description: this.description,
           path: r1.data.path
@@ -162,7 +162,7 @@ export default {
     },
     async getCars() {
       try {
-        let response = await axios.get("/api/cars");
+        let response = await axios.get("/api/cars/");
         this.cars = response.data;
         return true;
       } catch (error) {

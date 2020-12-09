@@ -42,7 +42,7 @@ const Car = mongoose.model('Car', carSchema);
 const Bike = mongoose.model('Bike', bikeSchema)
 
 // Create a new item in the museum: takes a title and a path to an image.
-app.post('/api/cars', async (req, res) => {
+app.post('/api/cars/', async (req, res) => {
   const car = new Car({
     make: req.body.make,
     model: req.body.model,
@@ -112,7 +112,7 @@ app.post('/api/photos', upload.single('photo'), async (req, res) => {
   });
 });
 // Get a list of all of the items in the museum.
-app.get('/api/cars', async (req, res) => {
+app.get('/api/cars/', async (req, res) => {
   try {
     let cars = await Car.find();
     res.send(cars);

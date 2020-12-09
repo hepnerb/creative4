@@ -8,20 +8,10 @@
       <router-link to="/">
         <img src="/images/logo.png">
       </router-link>
-      <h1>Generic Car Site</h1>
+      
     </div>
+    <h1>Generic Car Site</h1>
     </div>
-    <!-- <div class="header">
-    <router-link to="/">
-      <div class="logo">
-        <img src="/images/logo.png">
-      </div>
-    </router-link>
-    <div class="title">
-      <h1>Generic Used Car Site</h1>
-    </div>
-  </div> -->
-  <!-- </div> -->
   <div class="content">
     <router-view />
   </div>
